@@ -1,0 +1,62 @@
+html {
+  font-size: 10px;
+}
+textarea:focus,
+input:focus {
+  outline: none;
+}
+textarea,
+input {
+  font-size: 1.2rem;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  border-bottom: solid 2px grey;
+}
+
+body {
+  background-color: rgb(192, 192, 192);
+}
+
+main {
+  width: 95%;
+  padding: 10px;
+
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgb(131, 130, 130), -2px 0 2px rgb(131, 130, 130);
+}
+
+main > div:nth-child(1) {
+  font-size: 1.2rem;
+}
+
+.month__head {
+  background-color: rgb(100, 98, 98);
+  font-size: 1.6rem;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin: 5px auto;
+  height: min-content;
+}
+
+.month__name {
+  margin: 5px 5px 5px 5px;
+  max-width: min-content;
+}
+
+.month__result {
+  display: flex;
+  font-size: 1.2rem;
+
+  position: relative;
+  right: 3px;
+  bottom: -10px;
+  max-width: min-content;
+  max-height: min-content;
+  margin: 0;
+  flex-direction: row;
+}
