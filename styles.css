@@ -60,3 +60,10 @@ main > div:nth-child(1) {
   margin: 0;
   flex-direction: row;
 }
+
+.result_button {
+  width: 3rem;
+  height: 3rem;
+  background-color: rgb(146, 143, 143);
+  border-radius: 1.5rem;
+}
