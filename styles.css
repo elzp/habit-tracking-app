@@ -39,6 +39,7 @@ main > div:nth-child(1) {
 .arrow_container {
   width: 50px;
   margin: 10px;
+  flex-shrink: 0;
 }
 
 .months {
