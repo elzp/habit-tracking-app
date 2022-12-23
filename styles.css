@@ -31,10 +31,16 @@ main > div:nth-child(1) {
   font-size: 1.2rem;
 }
 
+.arrow_container {
+  width: 50px;
+  margin: 10px;
+}
+
 .month {
   max-height: 500px;
-overflow-y: scroll;
-max-width: 250px;}
+  overflow-y: scroll;
+  max-width: 250px;
+}
 
 .month__head {
   background-color: rgb(100, 98, 98);
