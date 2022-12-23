@@ -7,7 +7,21 @@ export const generateDayDiv = (dayNumber, dayName) => `<div class="date">
 <p class="day_name">${dayName}</p>
 <div class="result_button"></div>
 </div>`;
-
+export const generateMonthDiv = (nameOfMonth, numberOfDays) => `
+<div class="month">
+        <div class="month__head">
+          <div class="month__name">
+            ${nameOfMonth}
+          </div>
+          <div class="month__result">
+            <div class="result">0</div>
+            <div>/</div>
+            <div class="days">${numberOfDays}</div>
+          </div>
+        </div>
+        <div class="month__body">
+        </div>
+      </div>`;
 const dayNames = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.'];
 export const getDayName = (numberOfWeekDay) => dayNames[numberOfWeekDay];
 
