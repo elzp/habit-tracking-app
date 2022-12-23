@@ -36,10 +36,17 @@ main > div:nth-child(1) {
   margin: 10px;
 }
 
+.months {
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+}
+
 .month {
   max-height: 500px;
   overflow-y: scroll;
-  max-width: 250px;
+  width: 250px;
+  flex-shrink: 0;
 }
 
 .month__head {
