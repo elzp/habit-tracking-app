@@ -45,3 +45,17 @@ input.addEventListener('change', (e) => {
     e.target.placeholder = e.target.value;
   }
 });
+
+// update status in month
+
+const buttons = document.querySelectorAll('.result_button');
+
+buttons.forEach((it) =>
+  it.addEventListener('click', (e) => {
+    if (it.style['background-color'] !== 'green') {
+      it.style['background-color'] = 'green';
+    } else {
+      it.style['background-color'] = 'rgb(146, 143, 143)';
+    }
+  })
+);
