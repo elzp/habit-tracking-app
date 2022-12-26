@@ -49,13 +49,20 @@ input.addEventListener('change', (e) => {
 // update status in month
 
 const buttons = document.querySelectorAll('.result_button');
-
+const results = document.querySelectorAll('.result');
 buttons.forEach((it) =>
   it.addEventListener('click', (e) => {
+    const numberofMonthInArray = it.parentElement.classList[1] - 1;
+    const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
+    console.log(numberofMonthInArray, currentValueOfMonthResult);
     if (it.style['background-color'] !== 'green') {
       it.style['background-color'] = 'green';
+      results[numberofMonthInArray].innerHTML =
+        Number(currentValueOfMonthResult) + 1;
     } else {
       it.style['background-color'] = 'rgb(146, 143, 143)';
+      results[numberofMonthInArray].innerHTML =
+        Number(currentValueOfMonthResult) - 1;
     }
   })
 );
