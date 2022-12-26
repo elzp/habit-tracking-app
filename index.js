@@ -28,7 +28,7 @@ monthsAsNumbers.forEach((it) => {
 
   arrOfNumbersOfDays.forEach((it2) => {
     const date = new Date(2023, it, it2);
-    daysDivs.push(generateDayDiv(it2, getDayName(date.getDay())));
+    daysDivs.push(generateDayDiv(it2, getDayName(date.getDay()), it + 1));
   });
 
   const monthBodies = document.querySelectorAll('.month__body');
