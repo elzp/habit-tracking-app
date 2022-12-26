@@ -34,3 +34,14 @@ monthsAsNumbers.forEach((it) => {
   const monthBodies = document.querySelectorAll('.month__body');
   monthBodies[it].innerHTML = daysDivs.join('\n');
 });
+
+// save inputted text as placeholder
+
+const input = document.querySelector('input');
+
+input.addEventListener('change', (e) => {
+  console.log(e.target.value);
+  if (e.target.value !== '') {
+    e.target.placeholder = e.target.value;
+  }
+});
