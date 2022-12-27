@@ -48,7 +48,12 @@ main > div:nth-child(1) {
 .months {
   display: flex;
   flex-direction: row;
-  overflow-x: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.months::-webkit-scrollbar {
+  display: none;
 }
 
 .month {

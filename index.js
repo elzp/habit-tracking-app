@@ -66,3 +66,17 @@ buttons.forEach((it) =>
     }
   })
 );
+
+const leftButton = document.querySelector('.left');
+const rightButton = document.querySelector('.right');
+const monthsContainer = document.querySelectorAll('.months > *');
+let toLeftCount = 1;
+leftButton.addEventListener('click', (e) => {
+  if (toLeftCount + 1 !== 13) {
+    monthsContainer.forEach((it) => {
+      it.style.transform = `translateX(-${toLeftCount * 244}px)`;
+    });
+    toLeftCount++;
+  }
+});
+rightButton.addEventListener('click', (e) => {});
