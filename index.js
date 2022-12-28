@@ -71,12 +71,19 @@ const leftButton = document.querySelector('.left');
 const rightButton = document.querySelector('.right');
 const monthsContainer = document.querySelectorAll('.months > *');
 let toLeftCount = 1;
-leftButton.addEventListener('click', (e) => {
+rightButton.addEventListener('click', (e) => {
   if (toLeftCount + 1 !== 13) {
     monthsContainer.forEach((it) => {
-      it.style.transform = `translateX(-${toLeftCount * 244}px)`;
+      it.style.transform = `translateX(-${toLeftCount * 241.5}px)`;
     });
     toLeftCount++;
   }
 });
-rightButton.addEventListener('click', (e) => {});
+leftButton.addEventListener('click', (e) => {
+  if (toLeftCount - 1 !== -1) {
+    monthsContainer.forEach((it) => {
+      it.style.transform = `translateX(-${(toLeftCount - 1) * 241.5}px)`;
+    });
+    toLeftCount--;
+  }
+});
