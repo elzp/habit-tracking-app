@@ -36,7 +36,8 @@ main > div:nth-child(1) {
   display: flex;
   flex-direction: row;
   width: 95%;
-  max-height: 85%;
+  max-height: 65%;
+  margin: auto;
 }
 
 .arrow_container {
@@ -57,14 +58,19 @@ main > div:nth-child(1) {
 }
 
 .month {
-  max-height: 500px;
-  overflow-y: scroll;
+  /* max-height: 500px; */
+  /* overflow-y: scroll; */
   width: 240px;
-  margin-left: 3px;
+  margin: auto 3px;
   flex-shrink: 0;
   position: relative;
 }
+.month__body {
+  max-height: 500px;
+  overflow-y: scroll;
 
+  position: relative;
+}
 .month__head {
   background-color: rgb(100, 98, 98);
   font-size: 1.6rem;
@@ -116,21 +122,22 @@ main > div:nth-child(1) {
   margin: auto 10px auto auto;
 }
 
-*::-webkit-scrollbar-track {
+.month__body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px #252525;
   -webkit-box-shadow: inset 0 0 6px #252525;
   border-radius: 10px;
   background-color: #f5f5f5;
 }
 
-*::-webkit-scrollbar {
+.month__body::-webkit-scrollbar {
   width: 12px;
   background-color: #f5f5f5;
 }
 
-*::-webkit-scrollbar-thumb {
+.month__body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   box-shadow: inset 0 0 6px #252525;
   -webkit-box-shadow: inset 0 0 6px #252525;
   background-color: rgb(129, 127, 127);
+  margin: 3px 0;
 }
