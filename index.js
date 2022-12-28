@@ -54,11 +54,17 @@ buttons.forEach((it) =>
   it.addEventListener('click', (e) => {
     const numberofMonthInArray = it.parentElement.classList[1] - 1;
     const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
-    console.log(numberofMonthInArray, currentValueOfMonthResult);
     if (it.style['background-color'] !== 'green') {
       it.style['background-color'] = 'green';
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) + 1;
+      //show date of 'greens'
+      console.log(
+        'month',
+        it.parentElement.classList[1],
+        'day',
+        it.parentElement.classList[2]
+      );
     } else {
       it.style['background-color'] = 'rgb(146, 143, 143)';
       results[numberofMonthInArray].innerHTML =
