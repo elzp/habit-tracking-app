@@ -55,12 +55,14 @@ buttons.forEach((it) =>
   it.addEventListener('click', (e) => {
     const numberofMonthInArray = it.parentElement.classList[1] - 1;
     const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
+    const day = it.parentElement.classList[2].match(/\d/g).join('');
+
     if (it.style['background-color'] !== 'green') {
       it.style['background-color'] = 'green';
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) + 1;
       //show date of 'greens'
-      const day = it.parentElement.classList[2].match(/\d/g).join('');
+
       if (localStorage.getItem(it.parentElement.classList[1]) === null) {
         // check if key with month exist in localStorage
         localStorage.setItem(
@@ -73,7 +75,7 @@ buttons.forEach((it) =>
           .split(',');
         const isDayIsIn = currentState.some((it) => it === day);
         if (!isDayIsIn) {
-          let newState = [...currentState, day].join(',');
+          const newState = [...currentState, day].join(',');
           localStorage.setItem(it.parentElement.classList[1], newState);
         }
       }
@@ -87,6 +89,14 @@ buttons.forEach((it) =>
       it.style['background-color'] = 'rgb(146, 143, 143)';
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) - 1;
+
+      if (localStorage.getItem(it.parentElement.classList[1]) !== null) {
+        const currentState = localStorage
+          .getItem(it.parentElement.classList[1])
+          .split(',');
+        const newState = currentState.filter((it) => it !== day).join(',');
+        localStorage.setItem(it.parentElement.classList[1], newState);
+      }
     }
   })
 );
