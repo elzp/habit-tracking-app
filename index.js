@@ -7,6 +7,7 @@ import {
   generateMonthDiv,
 } from './additionalFn.js';
 console.log('Hello!');
+
 //generating 12 month divs
 const monthsAsNumbers = [...Array(12).keys()].map((it) => it);
 const containerOfMonths = document.querySelector('.months');
@@ -59,6 +60,23 @@ buttons.forEach((it) =>
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) + 1;
       //show date of 'greens'
+      const day = it.parentElement.classList[2].match(/\d/g).join('');
+      if (localStorage.getItem(it.parentElement.classList[1]) === null) {
+        // check if key with month exist in localStorage
+        localStorage.setItem(
+          it.parentElement.classList[1],
+          `${it.parentElement.classList[2].match(/\d/g)}`
+        );
+      } else {
+        const currentState = localStorage
+          .getItem(it.parentElement.classList[1])
+          .split(',');
+        const isDayIsIn = currentState.some((it) => it === day);
+        if (!isDayIsIn) {
+          let newState = [...currentState, day].join(',');
+          localStorage.setItem(it.parentElement.classList[1], newState);
+        }
+      }
       console.log(
         'month',
         it.parentElement.classList[1],
