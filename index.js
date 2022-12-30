@@ -61,6 +61,7 @@ monthsAsNumbers.forEach((item) => {
     currentState.forEach((checked) => {
       buttonsInMonth[checked - 1].style['background-color'] = 'green';
     });
+    results[item - 1].innerHTML = currentState.length;
   }
 });
 
