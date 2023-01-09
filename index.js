@@ -7,6 +7,7 @@ import {
   generateMonthDiv,
 } from './additionalFn.js';
 console.log('Hello!');
+
 //generating 12 month divs
 const monthsAsNumbers = [...Array(12).keys()].map((it) => it);
 const containerOfMonths = document.querySelector('.months');
@@ -47,36 +48,93 @@ input.addEventListener('change', (e) => {
 });
 
 // update status in month
+const results = document.querySelectorAll('.result');
+
+// set at start checked buttons based on localStorage
+monthsAsNumbers.forEach((item) => {
+  if (localStorage.getItem(`${item}`) !== null) {
+    const currentState = localStorage.getItem(`${item}`).split(',');
+    const buttonsInMonth = document.querySelectorAll(
+      `.month${item} > .result_button`
+    );
+
+    currentState.forEach((checked) => {
+      buttonsInMonth[checked - 1].style['background-color'] = 'green';
+    });
+    results[item - 1].innerHTML = currentState.length;
+  }
+});
 
 const buttons = document.querySelectorAll('.result_button');
-const results = document.querySelectorAll('.result');
-buttons.forEach((it) =>
+
+buttons.forEach((it) => {
   it.addEventListener('click', (e) => {
-    const numberofMonthInArray = it.parentElement.classList[1] - 1;
+    const numberofMonthInArray =
+      it.parentElement.classList[1].match(/\d/g).join('') - 1;
     const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
-    console.log(numberofMonthInArray, currentValueOfMonthResult);
+    const day = it.parentElement.classList[2].match(/\d/g).join('');
+
     if (it.style['background-color'] !== 'green') {
       it.style['background-color'] = 'green';
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) + 1;
+      //show date of 'greens'
+
+      if (localStorage.getItem(it.parentElement.classList[1]) === null) {
+        // check if key with month exist in localStorage
+        localStorage.setItem(
+          it.parentElement.classList[1].match(/\d/g).join(''),
+          `${it.parentElement.classList[2].match(/\d/g).join('')}`
+        );
+      } else {
+        const currentState = localStorage
+          .getItem(it.parentElement.classList[1])
+          .split(',');
+        const isDayIsIn = currentState.some((it) => it === day);
+        if (!isDayIsIn) {
+          const newState = [...currentState, day].join(',');
+          localStorage.setItem(
+            it.parentElement.classList[1].match(/\d/g).join(''),
+            newState
+          );
+        }
+      }
     } else {
       it.style['background-color'] = 'rgb(146, 143, 143)';
       results[numberofMonthInArray].innerHTML =
         Number(currentValueOfMonthResult) - 1;
+
+      if (localStorage.getItem(it.parentElement.classList[1]) !== null) {
+        const currentState = localStorage
+          .getItem(it.parentElement.classList[1])
+          .split(',');
+        const newState = currentState.filter((it) => it !== day).join(',');
+        localStorage.setItem(
+          it.parentElement.classList[1].match(/\d/g).join(''),
+          newState
+        );
+      }
     }
-  })
-);
+  });
+});
 
 const leftButton = document.querySelector('.left');
 const rightButton = document.querySelector('.right');
 const monthsContainer = document.querySelectorAll('.months > *');
 let toLeftCount = 1;
-leftButton.addEventListener('click', (e) => {
+rightButton.addEventListener('click', (e) => {
   if (toLeftCount + 1 !== 13) {
     monthsContainer.forEach((it) => {
-      it.style.transform = `translateX(-${toLeftCount * 244}px)`;
+      it.style.transform = `translateX(-${toLeftCount * 241.5}px)`;
     });
     toLeftCount++;
   }
 });
-rightButton.addEventListener('click', (e) => {});
+leftButton.addEventListener('click', (e) => {
+  if (toLeftCount - 1 !== -1) {
+    monthsContainer.forEach((it) => {
+      it.style.transform = `translateX(-${(toLeftCount - 1) * 241.5}px)`;
+    });
+    toLeftCount--;
+  }
+});

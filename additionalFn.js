@@ -6,7 +6,7 @@ export const generateDayDiv = (
   dayNumber,
   dayName,
   numberOfMonth
-) => `<div class="date ${numberOfMonth} ${dayNumber}">
+) => `<div class="date month${numberOfMonth} day${dayNumber}">
 <p class="day">${dayNumber}</p>
 <p class="day_name">${dayName}</p>
 <div class="result_button"></div>
