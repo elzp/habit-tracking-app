@@ -64,6 +64,10 @@ monthsAsNumbers.forEach((item) => {
   }
 });
 
+//generating path to link to share
+const shareButton = document.querySelector('.share');
+const shareUrl = document.querySelector('.share_url');
+
 const buttons = document.querySelectorAll('.result_button');
 
 buttons.forEach((it) => {
