@@ -68,6 +68,17 @@ monthsAsNumbers.forEach((item) => {
 const shareButton = document.querySelector('.share');
 const shareUrl = document.querySelector('.share_url');
 
+shareButton.addEventListener('click', () => {
+  let resultArray = [];
+  monthsAsNumbers.forEach((it) => {
+    if (localStorage.getItem(`${it}`) !== null) {
+      const days = localStorage.getItem(`${it}`);
+      resultArray.push(`m${it}d${days.split(',').join('-')}`);
+    }
+  });
+  shareUrl.innerHTML = window.location.href + resultArray.join(';');
+});
+
 const buttons = document.querySelectorAll('.result_button');
 
 buttons.forEach((it) => {
