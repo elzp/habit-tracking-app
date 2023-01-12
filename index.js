@@ -50,20 +50,41 @@ input.addEventListener('change', (e) => {
 const results = document.querySelectorAll('.result');
 
 // set at start checked buttons based on localStorage
-monthsAsNumbers.forEach((item) => {
-  if (localStorage.getItem(`${item}`) !== null) {
-    const currentState = localStorage.getItem(`${item}`).split(',');
+//first check if website is opened with shared url
+const sharedProgressData =
+  window.location.href.split('/')[window.location.href.split('/').length - 1];
+if (sharedProgressData !== '') {
+  const chunksAboutMonths = sharedProgressData.split(';');
+  const editedData = chunksAboutMonths.map((it) => {
+    return {
+      month: it.split('d')[0].match(/\d/)[0],
+      days: it.split('d')[1].split('-'),
+    };
+  });
+  editedData.forEach((it) => {
     const buttonsInMonth = document.querySelectorAll(
-      `.month${item} > .result_button`
+      `.month${it.month} > .result_button`
     );
-
-    currentState.forEach((checked) => {
-      buttonsInMonth[checked - 1].style['background-color'] = 'green';
+    it.days.forEach((noOfDay) => {
+      buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
     });
-    results[item - 1].innerHTML = currentState.length;
-  }
-});
-
+    results[it.month - 1].innerHTML = it.days.length;
+  });
+} else {
+  // get data from localSorage
+  monthsAsNumbers.forEach((item) => {
+    if (localStorage.getItem(`${item}`) !== null) {
+      const currentState = localStorage.getItem(`${item}`).split(',');
+      const buttonsInMonth = document.querySelectorAll(
+        `.month${item} > .result_button`
+      );
+      currentState.forEach((checked) => {
+        buttonsInMonth[checked - 1].style['background-color'] = 'green';
+      });
+      results[item - 1].innerHTML = currentState.length;
+    }
+  });
+}
 //generating path to link to share
 const shareButton = document.querySelector('.share');
 const shareUrl = document.querySelector('.share_url');
