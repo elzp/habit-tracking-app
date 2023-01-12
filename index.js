@@ -103,45 +103,47 @@ shareButton.addEventListener('click', () => {
 const buttons = document.querySelectorAll('.result_button');
 
 buttons.forEach((it) => {
-  it.addEventListener('click', (e) => {
-    const numberofMonthInArray =
-      it.parentElement.classList[1].match(/\d/g).join('') - 1;
-    const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
-    const day = it.parentElement.classList[2].match(/\d/g).join('');
-    const monthAsString = it.parentElement.classList[1].match(/\d/g).join('');
+  if (sharedProgressData == '') {
+    it.addEventListener('click', (e) => {
+      const numberofMonthInArray =
+        it.parentElement.classList[1].match(/\d/g).join('') - 1;
+      const currentValueOfMonthResult = results[numberofMonthInArray].innerHTML;
+      const day = it.parentElement.classList[2].match(/\d/g).join('');
+      const monthAsString = it.parentElement.classList[1].match(/\d/g).join('');
 
-    if (it.style['background-color'] !== 'green') {
-      it.style['background-color'] = 'green';
-      results[numberofMonthInArray].innerHTML =
-        Number(currentValueOfMonthResult) + 1;
-      //show date of 'greens'
+      if (it.style['background-color'] !== 'green') {
+        it.style['background-color'] = 'green';
+        results[numberofMonthInArray].innerHTML =
+          Number(currentValueOfMonthResult) + 1;
+        //show date of 'greens'
 
-      if (localStorage.getItem(monthAsString) === null) {
-        // check if key with month exist in localStorage
-        localStorage.setItem(
-          monthAsString,
-          `${it.parentElement.classList[2].match(/\d/g).join('')}`
-        );
+        if (localStorage.getItem(monthAsString) === null) {
+          // check if key with month exist in localStorage
+          localStorage.setItem(
+            monthAsString,
+            `${it.parentElement.classList[2].match(/\d/g).join('')}`
+          );
+        } else {
+          const currentState = localStorage.getItem(monthAsString).split(',');
+          const isDayIsIn = currentState.some((it) => it === day);
+          if (!isDayIsIn) {
+            const newState = [...currentState, day].join(',');
+            localStorage.setItem(monthAsString, newState);
+          }
+        }
       } else {
-        const currentState = localStorage.getItem(monthAsString).split(',');
-        const isDayIsIn = currentState.some((it) => it === day);
-        if (!isDayIsIn) {
-          const newState = [...currentState, day].join(',');
+        it.style['background-color'] = 'rgb(146, 143, 143)';
+        results[numberofMonthInArray].innerHTML =
+          Number(currentValueOfMonthResult) - 1;
+
+        if (localStorage.getItem(monthAsString) !== null) {
+          const currentState = localStorage.getItem(monthAsString).split(',');
+          const newState = currentState.filter((it) => it !== day).join(',');
           localStorage.setItem(monthAsString, newState);
         }
       }
-    } else {
-      it.style['background-color'] = 'rgb(146, 143, 143)';
-      results[numberofMonthInArray].innerHTML =
-        Number(currentValueOfMonthResult) - 1;
-
-      if (localStorage.getItem(monthAsString) !== null) {
-        const currentState = localStorage.getItem(monthAsString).split(',');
-        const newState = currentState.filter((it) => it !== day).join(',');
-        localStorage.setItem(monthAsString, newState);
-      }
-    }
-  });
+    });
+  }
 });
 
 const leftButton = document.querySelector('.left');
