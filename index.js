@@ -48,30 +48,8 @@ input.addEventListener('change', (e) => {
 
 // update status in month
 const results = document.querySelectorAll('.result');
-
-// set at start checked buttons based on localStorage
-//first check if website is opened with shared url
-const sharedProgressData =
-  window.location.href.split('/')[window.location.href.split('/').length - 1];
-if (sharedProgressData !== '') {
-  const chunksAboutMonths = sharedProgressData.split(';');
-  const editedData = chunksAboutMonths.map((it) => {
-    return {
-      month: it.split('d')[0].match(/\d/)[0],
-      days: it.split('d')[1].split('-'),
-    };
-  });
-  editedData.forEach((it) => {
-    const buttonsInMonth = document.querySelectorAll(
-      `.month${it.month} > .result_button`
-    );
-    it.days.forEach((noOfDay) => {
-      buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
-    });
-    results[it.month - 1].innerHTML = it.days.length;
-  });
-} else {
-  // get data from localSorage
+// get data from localSorage
+const getProgressFromLocal = () => {
   monthsAsNumbers.forEach((item) => {
     if (localStorage.getItem(`${item}`) !== null) {
       const currentState = localStorage.getItem(`${item}`).split(',');
@@ -84,6 +62,43 @@ if (sharedProgressData !== '') {
       results[item - 1].innerHTML = currentState.length;
     }
   });
+};
+// set at start checked buttons based on localStorage
+//first check if website is opened with shared url
+const sharedProgressData =
+  window.location.href.split('/')[window.location.href.split('/').length - 1];
+if (sharedProgressData !== '') {
+  const chunksAboutMonths = sharedProgressData.split(';');
+  const editedData = chunksAboutMonths.map((it) => {
+    return {
+      month: it.split('d')[0].match(/\d/)[0],
+      days: it.split('d')[1].split('-'),
+    };
+  });
+  if (localStorage.getItem(`${editedData[0].month}`) === null) {
+    editedData.forEach((it) => {
+      const buttonsInMonth = document.querySelectorAll(
+        `.month${it.month} > .result_button`
+      );
+      it.days.forEach((noOfDay) => {
+        buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
+        const currentMonthStatus = localStorage.getItem(`${it.month}`);
+
+        const newMonthStatus =
+          currentMonthStatus === null
+            ? `${noOfDay}`
+            : `${currentMonthStatus},${noOfDay}`;
+        console.log(currentMonthStatus);
+        localStorage.setItem(it.month, `${newMonthStatus}`);
+      });
+      results[it.month - 1].innerHTML = it.days.length;
+    });
+  } else {
+    getProgressFromLocal();
+  }
+} else {
+  // get data from localSorage
+  getProgressFromLocal();
 }
 //generating path to link to share
 const shareButton = document.querySelector('.share');
