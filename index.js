@@ -67,7 +67,12 @@ const getProgressFromLocal = () => {
 //first check if website is opened with shared url
 const sharedProgressData =
   window.location.href.split('/')[window.location.href.split('/').length - 1];
-if (sharedProgressData !== '') {
+const localSharedUrl = localStorage.getItem('sharedUrl');
+// const windowSharedUrl
+//
+console.log(sharedProgressData !== localSharedUrl);
+if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
+  localStorage.setItem('sharedUrl', sharedProgressData);
   const chunksAboutMonths = sharedProgressData.split(';');
   const editedData = chunksAboutMonths.map((it) => {
     return {
@@ -75,27 +80,23 @@ if (sharedProgressData !== '') {
       days: it.split('d')[1].split('-'),
     };
   });
-  if (localStorage.getItem(`${editedData[0].month}`) === null) {
-    editedData.forEach((it) => {
-      const buttonsInMonth = document.querySelectorAll(
-        `.month${it.month} > .result_button`
-      );
-      it.days.forEach((noOfDay) => {
-        buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
-        const currentMonthStatus = localStorage.getItem(`${it.month}`);
-
-        const newMonthStatus =
-          currentMonthStatus === null
-            ? `${noOfDay}`
-            : `${currentMonthStatus},${noOfDay}`;
-        console.log(currentMonthStatus);
-        localStorage.setItem(it.month, `${newMonthStatus}`);
-      });
-      results[it.month - 1].innerHTML = it.days.length;
+  editedData.forEach((it) => {
+    const buttonsInMonth = document.querySelectorAll(
+      `.month${it.month} > .result_button`
+    );
+    it.days.forEach((noOfDay) => {
+      buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
+      const currentMonthStatus = localStorage.getItem(`${it.month}`);
+      const newMonthStatus =
+        currentMonthStatus === null
+          ? `${noOfDay}`
+          : `${currentMonthStatus},${noOfDay}`;
+      console.log(currentMonthStatus);
+      localStorage.setItem(it.month, `${newMonthStatus}`);
+      // }
     });
-  } else {
-    getProgressFromLocal();
-  }
+    results[it.month - 1].innerHTML = it.days.length;
+  });
 } else {
   // get data from localSorage
   getProgressFromLocal();
