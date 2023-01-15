@@ -84,21 +84,8 @@ if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
     const buttonsInMonth = document.querySelectorAll(
       `.month${it.month} > .result_button`
     );
-    it.days.forEach((noOfDay) => {
-      buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
-      const currentMonthStatus = localStorage.getItem(`${it.month}`);
-      const isNoOfDayIsInLocal =
-        currentMonthStatus !== null
-          ? currentMonthStatus.split(',').some((it) => it === noOfDay)
-          : true;
-      const newDayToAdd = !isNoOfDayIsInLocal
-        ? `${currentMonthStatus},${noOfDay}`
-        : `${currentMonthStatus}`;
-      const newMonthStatus =
-        currentMonthStatus === null ? `${noOfDay}` : newDayToAdd;
-      console.log(currentMonthStatus);
-      localStorage.setItem(it.month, `${newMonthStatus}`);
-    });
+    localStorage.setItem(it.month, `${it.days.join(',')}`);
+    getProgressFromLocal();
     results[it.month - 1].innerHTML = it.days.length;
   });
 } else {
