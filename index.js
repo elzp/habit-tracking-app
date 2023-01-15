@@ -126,10 +126,9 @@ shareButton.addEventListener('click', () => {
   });
   shareUrl.innerHTML =
     window.location.href.split('/m')[0] +
-    '/' +
     resultArray.join(';') +
     'H-N' +
-    habitNameFromLocal;
+    (localStorage.getItem(habitNameString) ?? '');
 });
 
 const buttons = document.querySelectorAll('.result_button');
