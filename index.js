@@ -43,7 +43,6 @@ const habitNameFromLocal = localStorage.getItem(habitNameString);
 const sharedHabitName = window.location.href
   .split('/')
   [window.location.href.split('/').length - 1].split('H-N')[1];
-console.log(sharedHabitName);
 
 if (habitNameFromLocal !== null) {
   if (sharedHabitName === undefined || sharedHabitName === '') {
