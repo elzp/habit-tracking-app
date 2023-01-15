@@ -39,10 +39,23 @@ monthsAsNumbers.forEach((it) => {
 // save inputted text as placeholder
 
 const input = document.querySelector('input');
+const habitNameString = 'habitName';
+const habitNameFromLocal = localStorage.getItem(habitNameString);
+
+if (habitNameFromLocal !== null) {
+  input.placeholder = habitNameFromLocal;
+}
 
 input.addEventListener('change', (e) => {
   if (e.target.value !== '') {
     e.target.placeholder = e.target.value;
+  }
+  if (habitNameFromLocal === null) {
+    localStorage.setItem(habitNameString, `${e.target.value}`);
+  } else {
+    if (habitNameFromLocal !== e.target.value) {
+      localStorage.setItem(habitNameString, `${e.target.value}`);
+    }
   }
 });
 
