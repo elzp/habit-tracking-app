@@ -77,8 +77,9 @@ const getProgressFromLocal = () => {
 };
 // set at start checked buttons based on localStorage
 //first check if website is opened with shared url
-const sharedProgressData =
-  window.location.href.split('/')[window.location.href.split('/').length - 1];
+const sharedProgressData = window.location.href
+  .split('/')
+  [window.location.href.split('/').length - 1].split('H-N')[0];
 const localSharedUrl = localStorage.getItem('sharedUrl');
 
 if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
@@ -114,7 +115,12 @@ shareButton.addEventListener('click', () => {
       resultArray.push(`m${it}d${days.split(',').join('-')}`);
     }
   });
-  shareUrl.innerHTML = window.location.href + resultArray.join(';');
+  shareUrl.innerHTML =
+    window.location.href.split('/m')[0] +
+    '/' +
+    resultArray.join(';') +
+    'H-N' +
+    habitNameFromLocal;
 });
 
 const buttons = document.querySelectorAll('.result_button');
