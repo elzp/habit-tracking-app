@@ -40,9 +40,19 @@ monthsAsNumbers.forEach((it) => {
 const input = document.querySelector('input');
 const habitNameString = 'habitName';
 const habitNameFromLocal = localStorage.getItem(habitNameString);
+const sharedHabitName = window.location.href
+  .split('/')
+  [window.location.href.split('/').length - 1].split('H-N')[1];
+console.log(sharedHabitName);
 
 if (habitNameFromLocal !== null) {
-  input.placeholder = habitNameFromLocal;
+  if (sharedHabitName === undefined || sharedHabitName === '') {
+    input.placeholder = habitNameFromLocal;
+    localStorage.setItem(habitNameString, `${habitNameFromLocal}`);
+  } else {
+    input.placeholder = sharedHabitName;
+    localStorage.setItem(habitNameString, `${sharedHabitName}`);
+  }
 }
 
 input.addEventListener('change', (e) => {
