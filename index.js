@@ -70,7 +70,7 @@ const sharedProgressData =
 const localSharedUrl = localStorage.getItem('sharedUrl');
 // const windowSharedUrl
 //
-console.log(sharedProgressData !== localSharedUrl);
+console.log(sharedProgressData !== '' && sharedProgressData !== localSharedUrl);
 if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
   localStorage.setItem('sharedUrl', sharedProgressData);
   const chunksAboutMonths = sharedProgressData.split(';');
@@ -87,13 +87,17 @@ if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
     it.days.forEach((noOfDay) => {
       buttonsInMonth[noOfDay - 1].style['background-color'] = 'green';
       const currentMonthStatus = localStorage.getItem(`${it.month}`);
+      const isNoOfDayIsInLocal =
+        currentMonthStatus !== null
+          ? currentMonthStatus.split(',').some((it) => it === noOfDay)
+          : true;
+      const newDayToAdd = !isNoOfDayIsInLocal
+        ? `${currentMonthStatus},${noOfDay}`
+        : `${currentMonthStatus}`;
       const newMonthStatus =
-        currentMonthStatus === null
-          ? `${noOfDay}`
-          : `${currentMonthStatus},${noOfDay}`;
+        currentMonthStatus === null ? `${noOfDay}` : newDayToAdd;
       console.log(currentMonthStatus);
       localStorage.setItem(it.month, `${newMonthStatus}`);
-      // }
     });
     results[it.month - 1].innerHTML = it.days.length;
   });
