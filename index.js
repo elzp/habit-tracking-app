@@ -6,7 +6,6 @@ import {
   getMonthName,
   generateMonthDiv,
 } from './additionalFn.js';
-console.log('Hello!');
 
 //generating 12 month divs
 const monthsAsNumbers = [...Array(12).keys()].map((it) => it);
@@ -81,9 +80,7 @@ const getProgressFromLocal = () => {
 const sharedProgressData =
   window.location.href.split('/')[window.location.href.split('/').length - 1];
 const localSharedUrl = localStorage.getItem('sharedUrl');
-// const windowSharedUrl
-//
-console.log(sharedProgressData !== '' && sharedProgressData !== localSharedUrl);
+
 if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
   localStorage.setItem('sharedUrl', sharedProgressData);
   const chunksAboutMonths = sharedProgressData.split(';');
