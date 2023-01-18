@@ -91,7 +91,9 @@ const sharedProgressData = window.location.href
   [window.location.href.split('/').length - 1].split('H-N')[0];
 const localSharedUrl = localStorage.getItem('sharedUrl');
 
-if (sharedProgressData !== '' && sharedProgressData !== localSharedUrl) {
+if (
+  sharedProgressData !== '' // && sharedProgressData !== localSharedUrl
+) {
   localStorage.setItem('sharedUrl', sharedProgressData);
   const chunksAboutMonths = sharedProgressData.split(';');
   const editedData = chunksAboutMonths.map((it) => {
